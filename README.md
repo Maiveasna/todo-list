@@ -1,7 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
+
+#### source 
+ 
+ > ```javascript
+> https://github.com/Maiveasna/v_tech
+> ```
+
+  #### url for test 
+ 
+ > ```javascript
+> https://github.com/Maiveasna/v_tech
+> ```
+
+  
+  
 First, run the development server:
 
 ```bash
@@ -14,25 +28,95 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+</br>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## CRUD APIs
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Creating new todo
 
-## Learn More
+<details>
+ <summary><code>POST</code> <code><b>/</b></code> <code>${base_url}/api/todo</code></summary>
 
-To learn more about Next.js, take a look at the following resources:
+##### Parameters
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | uuid      |  required |  uuid   | N/A  |
+> | todo      |  required |  string    | N/A  |
+> | isCompleted      |  required |  string   | N/A  |
+> | createdAt      |  required |  timestamp  | N/A  |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+##### Responses
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `201`         | `application/json`       |  `{"code":"201","message":" Created successfully" , "data" : "JSON"}`                                 |
+> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+> | `405`         | `text/html;charset=utf-8`         | None                                                                |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+##### Example cURL
+
+> ```javascript
+>  curl -X POST -H "Content-Type: application/json" --data @post.json  ${base_url}/api/todo
+> ```
+
+</details>
+
+
+#### Updating Todo
+
+<details>
+  <summary><code>PUT</code> <code><b>${base_url}/api/todo/{id}</b></code> </summary>
+
+##### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | todo      |  required |  string    | N/A  |
+> | isCompleted      |  required |  string   | N/A  |
+
+
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `201`         | `application/json`     | `{ message : "Updated successfully"}`        |
+> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+> | `405`         | `text/html;charset=utf-8`         | None                                                                |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X PUT -H "Content-Type: application/json" --data @put.json   ${base_url}/api/todo/${id}
+> ```
+
+</details>
+
+#### Delete todo
+
+<details>
+  <summary><code>DELETE</code> <code><b>/api/todo/{id}</code></summary>
+
+##### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | uuid      |  required |  uuid   | N/A  |
+
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`     | `{ message : "Delete successfully"}`        |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X DELETE -H "Content-Type: application/json"  ${base_url}/api/todo/${id}
+> ```
+
+</details>
