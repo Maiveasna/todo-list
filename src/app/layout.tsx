@@ -1,14 +1,18 @@
 import './globals.css'
+ import prisma from "../lib/prisma";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <head />
-      <body>{children}</body>
-    </html>
-  );
-}
+ export default async function RootLayout({
+   children,
+ }: {
+   children: React.ReactNode;
+ }) {
+   const user = await prisma.user.findMany();
+   console.log("pppp", user);
+
+   return (
+     <html lang="en">
+       <head />
+       <body>{children}</body>
+     </html>
+   );
+ }
