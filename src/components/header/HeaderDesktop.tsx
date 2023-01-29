@@ -1,8 +1,10 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { usePathname } from "next/navigation";
 
 export default function HeaderDesktop() {
+  const pathname = usePathname();
   return (
     <div className="w-full shadow-sm  py-2 bg-white">
       <div className="max-w-6xl m-auto w-full flex justify-between items-center">
@@ -18,10 +20,24 @@ export default function HeaderDesktop() {
           </div>
         </Link>
         <div className=" flex space-x-6 items-center">
-          <Link className="hover:text-teal-500 text-gray-600" href="/">
+          <Link
+            className={` ${
+              pathname == "/"
+                ? "text-teal-500"
+                : "text-gray-600 hover:text-teal-500"
+            }`}
+            href="/"
+          >
             Todo
           </Link>
-          <Link className="hover:text-teal-500 text-gray-600" href="/about">
+          <Link
+            className={` ${
+              pathname == "/about"
+                ? "text-teal-500"
+                : "text-gray-600 hover:text-teal-500"
+            }`}
+            href="/about"
+          >
             About Us
           </Link>
           <div className="flex space-x-1 items-center">

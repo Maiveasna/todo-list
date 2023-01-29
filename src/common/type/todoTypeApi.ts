@@ -17,6 +17,14 @@ export type Links = {
   next?: string;
 };
 
+
+export type TodoParams = {
+  limit?: number;
+  cursor?: number;
+  startDate?: string;
+  endDate?: string;
+};
+
 export type Error = {
   message?: string;
   status?: number;
