@@ -11,7 +11,7 @@ export default function About() {
         alt="me"
         src="/assets/profile.jpg"
       />
-      <span className="text-lg font-semibold">I'm Mai Veasna</span>
+      <span className="text-lg font-semibold">I am Mai Veasna</span>
       <p className="text-sm text-gray-500">Frontend developer at Nham24.</p>
     </div>
   );
