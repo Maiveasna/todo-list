@@ -47,7 +47,7 @@ export default function useTodo({
   const fetchDataByNextPage = async (
     next: string,
     search?: string,
-    filter?: boolean
+    filter?: boolean | string
   ) => {
     setIsFetchingNextPage(true);
     try {

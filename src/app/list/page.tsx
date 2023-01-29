@@ -119,7 +119,7 @@ export default function ListPage() {
           <button
             className="py-5 bg-teal-500 rounded-lg text-white cursor-pointer hover:text-gray-100 transform ease-in-out duration-500"
             onClick={() =>
-              fetchDataByNextPage(nextPage as string, search, filter as boolean)
+              fetchDataByNextPage(nextPage as string, search, filter)
             }
           >
             Load More
