@@ -22,7 +22,7 @@ export default function HeaderDesktop() {
         <div className=" flex space-x-6 items-center">
           <Link
             className={` ${
-              pathname == "/"
+              pathname == "/" || pathname == "/list"
                 ? "text-teal-500"
                 : "text-gray-600 hover:text-teal-500"
             }`}

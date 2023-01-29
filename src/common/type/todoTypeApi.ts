@@ -14,15 +14,16 @@ export type Links = {
   first?: string;
   last?: string;
   prev?: string;
-  next?: string;
+  next?: string | null;
 };
-
 
 export type TodoParams = {
   limit?: number;
   cursor?: number;
   startDate?: string;
   endDate?: string;
+  search?: string;
+  filter?: boolean | string;
 };
 
 export type Error = {
