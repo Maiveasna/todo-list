@@ -63,7 +63,9 @@ export default async function handler(
         }
         const del = await prisma.todo.delete({ where: { id: id } });
         if (del)
-          return res.status(200).json({ status: 200, message: "success" });
+          return res
+            .status(200)
+            .json({ status: 200, message: "Delete successfull" });
         else throw new Error("Something Wrong");
       } catch (error) {
         return res.status(400).json({ status: 400, message: "Bad request!" });

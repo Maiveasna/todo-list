@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 async function main() {
-  new Array(100).fill(0).forEach(async (_, index) => {
+  new Array(30).fill(0).forEach(async (_, index) => {
     await prisma.todo.create({
       data: {
         todo: "first seed - " + `(${index})`,
@@ -10,7 +10,6 @@ async function main() {
     });
   });
 }
-
 main()
   .catch((error) => {
     console.log("ERROR SEED ::::", error);

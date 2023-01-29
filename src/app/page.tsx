@@ -5,11 +5,6 @@ import DaboardContainer from "@/components/dashboard/DaboardContainer";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
-const fetchData = async () => {
-  const todosList = (await TodoApis.getTodoList({ limit: 2 })).data;
-  return todosList;
-};
-
 const fetchDataSummay = async () => {
   const todosList = (
     await TodoApis.getSummaryData({

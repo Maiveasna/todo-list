@@ -1,4 +1,5 @@
 import httpUtils from "@/common/utils/httpUtils";
+import _ from "lodash";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { Data, Error, Links, Meta } from "./../../../common/type/todoTypeApi";
@@ -39,6 +40,23 @@ export default async function handler(
       try {
         const cursor = req.query.cursor ?? "";
         const limit = req.query.limit ?? 20;
+        const search = req.query.search ?? "";
+        const filter = req.query.filter;
+        let query = {};
+        query =
+          filter == "all"
+            ? {}
+            : filter === "true"
+            ? { isCompleted: true }
+            : { isCompleted: false };
+        query = !!search
+          ? {
+              ...query,
+              todo: {
+                contains: search as string,
+              },
+            }
+          : { ...query };
         const cursorObject =
           cursor == "" ? undefined : { id: parseInt(cursor as string) };
         const data = await prisma.todo.findMany({
@@ -47,16 +65,20 @@ export default async function handler(
           orderBy: {
             id: "asc", // Ordering results
           },
+          where: { ...query },
         });
 
         const nextCursor =
           data?.length == limit ? data[data.length - 1].id + 1 : undefined;
+        const next = nextCursor
+          ? `/api/todo?cursor=${nextCursor}&limit=${limit}`
+          : null;
         return res.status(200).json({
           data: data,
           meta: { per_page: 20, current_page: 1, path: "/api/todo" },
           link: {
             prev: `/api/todo?cursor=${data[0].id}&limit=${limit}`,
-            next: `/api/todo?cursor=${nextCursor}&limit=${limit}`,
+            next: next,
           },
         });
       } catch (error) {

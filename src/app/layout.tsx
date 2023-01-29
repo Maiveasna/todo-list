@@ -1,6 +1,7 @@
 import Footer from "@/components/footer/Footer";
 import HeaderDesktop from "@/components/header/HeaderDesktop";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 export default async function RootLayout({
   children,

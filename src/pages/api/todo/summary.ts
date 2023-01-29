@@ -20,15 +20,19 @@ export default async function handler(
         const end = new Date(req.query.end as string); // 2023-01-30
         const endDay = end.getUTCDate() + 1;
         end.setDate(endDay);
+        const filter = req.query.filter;
         const data = await prisma.todo.findMany({
           where: {
             OR: [{ createdAt: { gte: start, lte: end } }],
           },
         });
         const recentData = await prisma.todo.findMany({
-          take: 20,
+          take: 10,
           orderBy: {
             createdAt: "desc",
+          },
+          where: {
+            OR: [{ createdAt: { gte: start, lte: end } }],
           },
         });
         const compltedData = data.filter(
