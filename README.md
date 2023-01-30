@@ -236,6 +236,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ## Authors
+    
+- [@maiveasna]( https://github.com/Maiveasna)
 
-- [@maiveasna]([https://www.linkedin.com/in/mai-veasna-61412919a/](https://github.com/Maiveasna))
+
     
