@@ -25,6 +25,7 @@ export default function ListPage() {
   const searchParams = useSearchParams();
   const [data, setData] = useState<Data[]>();
   const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [editData, setDataEdit] = useState<Data>();
   const filter =
     searchParams?.get("filter") == "all" || !searchParams?.get("filter")
@@ -66,15 +67,18 @@ export default function ListPage() {
   }, 700);
 
   const handleDelete = async (id: number) => {
+    setIsLoading(true);
     await TodoApis.deleteTodo(id)
       .then((res) => {
         const nData = data?.filter((todo) => todo.id !== id);
         setData(nData);
         ToastMessage({ title: res?.data.message, status: "success" });
+        setIsLoading(false);
       })
       .catch((error) => {
         httpUtils.parseError(error).then((err) => {
           ToastMessage({ title: err.errors[0], status: "error" });
+          setIsLoading(false);
         });
       })
       .catch((error) => error);
@@ -135,6 +139,7 @@ export default function ListPage() {
           data.map((rec: Data, index: number) => {
             return (
               <CardTodo
+                loading={isLoading}
                 onToggle={handleeditSucess}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
