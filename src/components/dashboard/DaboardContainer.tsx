@@ -31,16 +31,19 @@ export default function DaboardContainer({ props }: { props: Props }) {
     setData(props?.recent);
   }, [JSON.stringify(props?.recent)]);
   const handleDelete = async (id: number) => {
+    setLoading(true);
     await TodoApis.deleteTodo(id)
       .then((res) => {
         const nData = data?.filter((todo) => todo.id !== id);
         setData(nData);
         ToastMessage({ title: res?.data.message, status: "success" });
         onRefresh();
+        setLoading(false);
       })
       .catch((error) => {
         httpUtils.parseError(error).then((err) => {
           ToastMessage({ title: err.errors[0], status: "error" });
+          setLoading(false);
         });
       });
   };
@@ -84,7 +87,7 @@ export default function DaboardContainer({ props }: { props: Props }) {
       <ToastContainer />
       <div className="w-full flex bg-white px-6 py-3 justify-between items-center">
         <span className=" font-semibold uppercase">Dashboard</span>
-        <div className=" flex space-x-4">
+        <div className=" flex space-x-4 ">
           <button
             onClick={onRefresh}
             className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500"
@@ -166,6 +169,7 @@ export default function DaboardContainer({ props }: { props: Props }) {
           data.map((rec: Data, index: number) => {
             return (
               <CardTodo
+                loading={loading}
                 onToggle={handleeditSucess}
                 onEdit={handleEdit}
                 onDelete={handleDelete}

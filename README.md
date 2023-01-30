@@ -11,7 +11,7 @@
   #### url for test 
  
  > ```javascript
-> https://github.com/Maiveasna/v_tech
+> https://v-tech-rho.vercel.app/
 > ```
 
   
