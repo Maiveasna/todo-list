@@ -107,7 +107,7 @@ export default function ListPage() {
     <div className="w-full h-full  m-auto max-w-4xl rounded-lg ">
       <ToastContainer />
       <div className="w-full flex bg-white px-6 py-3 justify-between items-center">
-        <span className=" font-semibold uppercase">List</span>
+        <span className=" font-semibold capitalize">List</span>
         <div className=" flex space-x-4">
           <div className=" border border-teal-500 items-center justify-center flex pr-4 pl-2 py-2 text-sm rounded-lg space-x-2 ">
             <input

@@ -1,6 +1,6 @@
 import { Data } from "@/common/type/todoTypeApi";
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import { FiEdit3 } from "react-icons/fi";
 import { AiFillDelete } from "react-icons/ai";
 import Toggle from "../toggle";
@@ -19,18 +19,23 @@ export default function CardTodo({
   onDelete?: (id: number) => void;
   onToggle?: (data?: Data) => void;
 }) {
+  const [loading, setLoading] = useState<boolean>(false);
   const handleChek = async () => {
+    setLoading(true);
     await TodoApis.editTodo({
+      ...data,
       id: data?.id as number,
       isCompleted: !data?.isCompleted,
     })
       .then((res) => {
         const resData = res?.data;
+        setLoading(false);
         onToggle && onToggle(resData);
       })
       .catch((error) => {
         httpUtils.parseError(error).then((err) => {
           ToastMessage({ title: err?.errors[0], status: "error" });
+          setLoading(false);
         });
       });
   };
@@ -57,6 +62,7 @@ export default function CardTodo({
 
           <div key={data?.id} className=" group-hover:block hidden">
             <Toggle
+              loading={loading}
               onChange={handleChek}
               defaultValue={data?.isCompleted}
               id={data?.id + "_new" + data?.todo}
