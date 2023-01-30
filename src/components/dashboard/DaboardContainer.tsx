@@ -70,6 +70,7 @@ export default function DaboardContainer({ props }: { props: Props }) {
     setData(newData);
     setDataEdit(null);
     setOpenEdit(false);
+    onRefresh();
   };
 
   const handleEdit = (data?: Data) => {
