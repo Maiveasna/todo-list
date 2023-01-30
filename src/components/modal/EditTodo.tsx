@@ -3,16 +3,22 @@ import TodoApis from "@/common/api/TodoApi";
 import { Data } from "@/common/type/todoTypeApi";
 import httpUtils from "@/common/utils/httpUtils";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import Modal from ".";
 import Toggle from "../toggle";
 type Props = {
   onClose?: () => void;
   onSuccess?: (data?: Data) => void;
+  dataEdit?: Data;
 };
 
-export default function CreateTodo({ onClose, onSuccess }: Props) {
+export default function EditTodo({ dataEdit, onClose, onSuccess }: Props) {
   const [message, setMessage] = useState<string>();
-  const [data, setData] = useState<{ todo?: string; isCompleted?: boolean }>();
+  const [data, setData] = useState<Data>();
+
+  useEffect(() => {
+    setData(dataEdit);
+  }, [JSON.stringify(dataEdit)]);
 
   const handleChangeInput = (e) => {
     setMessage("");
@@ -40,13 +46,13 @@ export default function CreateTodo({ onClose, onSuccess }: Props) {
     const body = {
       isCompleted: data?.isCompleted,
       todo: data?.todo,
+      id: data?.id as number,
     };
     if (validtion()) {
-      await TodoApis.createTodo({ ...body })
+      await TodoApis.editTodo({ ...body })
         .then((res) => {
           const resData = res?.data;
-          setData({ todo: "", isCompleted: false });
-          ToastMessage({ title: "Created success", status: "success" });
+          ToastMessage({ title: "Updated success", status: "success" });
           onSuccess && onSuccess(resData);
         })
         .catch((error) => {
@@ -59,7 +65,7 @@ export default function CreateTodo({ onClose, onSuccess }: Props) {
   };
 
   return (
-    <Modal title="Create Todo">
+    <Modal title="Update Todo">
       <div className=" flex flex-col w-full ">
         <div className="sm:flex sm:items-start">
           <div className="mt-2 h-30 w-full flex  flex-col">

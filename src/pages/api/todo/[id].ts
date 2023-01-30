@@ -24,8 +24,10 @@ export default async function handler(
           where: { todo: body?.todo },
         });
 
-        if (checkUniq)
+        if (checkUniq && body?.isCompleted === checkUniq?.isCompleted) {
           throw new Error("Unique constraint failed on the fields: (`todo`)");
+        }
+
         const newData = await prisma.todo.update({
           where: {
             id: id,

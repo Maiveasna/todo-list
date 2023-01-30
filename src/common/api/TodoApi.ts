@@ -55,6 +55,22 @@ const TodoApis = {
       { baseURL: "" }
     );
   },
+  editTodo: async ({
+    todo,
+    isCompleted,
+    id,
+  }: {
+    todo?: string;
+    isCompleted?: boolean;
+    id?: number;
+  }) => {
+    const URL = `/api/todo/${id}`;
+    return API.put(
+      URL,
+      { todo: todo, isCompleted: isCompleted },
+      { baseURL: "" }
+    );
+  },
 };
 
 export default TodoApis;
