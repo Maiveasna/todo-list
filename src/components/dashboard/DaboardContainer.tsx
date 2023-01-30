@@ -154,7 +154,7 @@ export default function DaboardContainer({ props }: { props: Props }) {
             className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500"
           >
             <AiOutlinePlus size={16} />
-            <span> New</span>
+            <span>Create Todo</span>
           </button>
           <Link href="/list">
             <div className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500">
