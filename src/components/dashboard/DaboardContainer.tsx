@@ -31,16 +31,19 @@ export default function DaboardContainer({ props }: { props: Props }) {
     setData(props?.recent);
   }, [JSON.stringify(props?.recent)]);
   const handleDelete = async (id: number) => {
+    setLoading(true);
     await TodoApis.deleteTodo(id)
       .then((res) => {
         const nData = data?.filter((todo) => todo.id !== id);
         setData(nData);
         ToastMessage({ title: res?.data.message, status: "success" });
         onRefresh();
+        setLoading(false);
       })
       .catch((error) => {
         httpUtils.parseError(error).then((err) => {
           ToastMessage({ title: err.errors[0], status: "error" });
+          setLoading(false);
         });
       });
   };
@@ -166,6 +169,7 @@ export default function DaboardContainer({ props }: { props: Props }) {
           data.map((rec: Data, index: number) => {
             return (
               <CardTodo
+                loading={loading}
                 onToggle={handleeditSucess}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
