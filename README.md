@@ -6,17 +6,31 @@
 </p>
 
 <p align="center">
-    V-POST TODO
+    VPOST24 TODO
 </p>
 
 
 ## Overviwe
 
-Dello Dear,
+Hello Dear,
 
 I'm Mai Veasna, Currently, I'm a full-stack developer, and I grew up in the beautiful world 😁.I make this project for a simple todo list and open source for sharing with those who want to test.The below section will show about instruction to use that project. 
 
 Have fun and happy coding! 😁😁
+
+
+## Features
+
+- Summary data on dashboard
+- Recently todo list
+- List all of todo list
+- Create a todo
+- Edit a todo
+- Delete todo
+- Filter todo list
+- Toggle for mark as completed or incompleted
+- APIs (get,delete,update) in below for that instruction
+- About Us
 
 ## Getting Started
 
@@ -40,9 +54,38 @@ Have fun and happy coding! 😁😁
 > https://v-tech-rho.vercel.app
 > ```
 
+
+First install dependent
+
+
+```bash
+yarn 
+#or
+npm  install
+#or
+pnpm
+```
+
+## Set up
+
+Create a `.env` and add variable `DATABASE_URL`  and assign the value with your database URL. please check simple on  file env.simple
+
+    
+Datase / PostgreSQL
+
+To run migrate data base, run the following command
+
+```bash
+ yarn prisma migrate dev
+ #or
+ npm run prisma migrate dev
+ #or
+ pnpm  prisma migrate dev
+```
+
   
   
-First, run the development server:
+run the development server:
 
 ```bash
 npm run dev
@@ -51,6 +94,7 @@ yarn dev
 # or
 pnpm dev
 ```
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -140,7 +184,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 > | http code     | content-type                      | response                                                            |
 > |---------------|-----------------------------------|---------------------------------------------------------------------|
-> | `201`         | `application/json`     | `{ message : "Updated successfully"}`        |
+> | `201`         | `application/json`     | `{ "message" : "Updated successfully"}`        |
 > | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
 > | `405`         | `text/html;charset=utf-8`         | None                                                                |
 
@@ -168,7 +212,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 > | http code     | content-type                      | response                                                            |
 > |---------------|-----------------------------------|---------------------------------------------------------------------|
-> | `200`         | `application/json`     | `{ message : "Delete successfully"}`        |
+> | `200`         | `application/json`     | `{ "message" : "Delete successfully"}`        |
 
 ##### Example cURL
 
@@ -178,10 +222,20 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 </details>
 
+## Tech Stack
 
-## Technology
+**Client:** React,TailwindCSS, Next Js
+
+**Server:** AWS,Vercel, 
+    
+**Database:** PostgreSQL,
+    
+**Backend:** Prisma, Node Js,
+    
+    
 
 
 ## Authors
 
-- [@maiveasna](https://www.linkedin.com/in/mai-veasna-61412919a/)
+- [@maiveasna]([https://www.linkedin.com/in/mai-veasna-61412919a/](https://github.com/Maiveasna))
+    
