@@ -47,7 +47,6 @@ export default async function handler(
           recent: recentData,
         });
       } catch (error) {
-        console.log("ooo error");
         return res.status(400).json({ status: 400, message: "Bad request!" });
       }
     default:

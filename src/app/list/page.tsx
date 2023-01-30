@@ -135,6 +135,7 @@ export default function ListPage() {
           data.map((rec: Data, index: number) => {
             return (
               <CardTodo
+                onToggle={handleeditSucess}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
                 key={rec?.id}

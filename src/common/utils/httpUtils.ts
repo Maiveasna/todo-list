@@ -49,10 +49,8 @@ const parseError = (error: AxiosError) => {
           result.errors.push(msg || error.message);
         }
       }
-      console.log(result);
       resolve(result);
     } catch (e) {
-      console.log(e);
       result.errors.push("Unhandled exception");
       resolve(result);
     }
