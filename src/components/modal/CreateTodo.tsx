@@ -1,9 +1,15 @@
+import { ToastMessage } from "@/app/toastMessage";
+import TodoApis from "@/common/api/TodoApi";
+import { Data } from "@/common/type/todoTypeApi";
+import httpUtils from "@/common/utils/httpUtils";
 import React, { useState } from "react";
 import Modal from ".";
 type Props = {
   onClose?: () => void;
+  onSuccess?: (data?: Data) => void;
 };
-export default function CreateTodo({ onClose }: Props) {
+
+export default function CreateTodo({ onClose, onSuccess }: Props) {
   const [message, setMessage] = useState<string>();
   const [data, setData] = useState<{ todo?: string; isCompleted?: boolean }>();
 
@@ -26,10 +32,29 @@ export default function CreateTodo({ onClose }: Props) {
   const handleKeyPress = (e) => {
     if (e.keyCode == 13) {
       if (validtion()) {
-        alert("Enter... (KeyDown, use keyCode)");
+        handleSubmit();
       } else {
       }
     }
+  };
+
+  const handleSubmit = async () => {
+    const body = {
+      isCompleted: data?.isCompleted,
+      todo: data?.todo,
+    };
+    await TodoApis.createTodo({ ...body })
+      .then((res) => {
+        const resData = res?.data;
+        console.log("create:::", res);
+        onSuccess && onSuccess(resData);
+        ToastMessage({ title: res?.data?.message, status: "success" });
+      })
+      .catch((error) => {
+        httpUtils.parseError(error).then((err) => {
+          setMessage(err?.errors[0]);
+        });
+      });
   };
 
   return (
@@ -72,6 +97,7 @@ export default function CreateTodo({ onClose }: Props) {
             Close
           </button>
           <button
+            onClick={handleSubmit}
             type="button"
             className="mt-3 inline-flex w-full justify-center rounded-md border  bg-teal-500 px-4 py-2 text-base font-medium text-white hover:bg-teal-600  shadow-sm focus:outline-none sm:mt-0 sm:ml-6 sm:w-auto sm:text-sm"
           >
