@@ -1,4 +1,23 @@
 
+
+
+<p align="center">
+    <img width="75" src="https://v-tech-rho.vercel.app/_next/image?url=%2Fassets%2Ficon-vpost24.png&w=48&q=75" alt="logo">
+</p>
+
+<p align="center">
+    V-POST TODO
+</p>
+
+
+## Overviwe
+
+Dello Dear,
+
+I'm Mai Veasna, Currently, I'm a full-stack developer, and I grew up in the beautiful world 😁.I make this project for a simple todo list and open source for sharing with those who want to test.The below section will show about instruction to use that project. 
+
+Have fun and happy coding! 😁😁
+
 ## Getting Started
 
 
@@ -12,6 +31,13 @@
  
  > ```javascript
 > https://v-tech-rho.vercel.app/
+> ```
+
+
+  ####  base url 
+ 
+ > ```javascript
+> https://v-tech-rho.vercel.app
 > ```
 
   
@@ -32,6 +58,37 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 </br>
 
 ## CRUD APIs
+
+
+#### get todo list
+
+<details>
+ <summary><code>GET</code> <code><b>/</b></code> <code>${base_url}/api/todo</code></summary>
+
+##### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | limit      |  none |   number    | N/A  |
+> | filter      |  none |  boolean    | N/A  |
+
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`       |  `{  "data" : "Array JSON", "meta" :  "JSON" , "link" :"JSON" }`                                 |
+
+
+##### Example cURL
+
+> ```javascript
+> ${base_url}/api/todo
+> ```
+
+</details>
+
+
 
 #### Creating new todo
 
@@ -59,7 +116,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ##### Example cURL
 
 > ```javascript
->  curl -X POST -H "Content-Type: application/json" --data @post.json  ${base_url}/api/todo
+>  ${base_url}/api/todo
 > ```
 
 </details>
@@ -90,7 +147,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ##### Example cURL
 
 > ```javascript
->  curl -X PUT -H "Content-Type: application/json" --data @put.json   ${base_url}/api/todo/${id}
+>   ${base_url}/api/todo/${id}
 > ```
 
 </details>
@@ -116,7 +173,15 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ##### Example cURL
 
 > ```javascript
->  curl -X DELETE -H "Content-Type: application/json"  ${base_url}/api/todo/${id}
+> ${base_url}/api/todo/${id}
 > ```
 
 </details>
+
+
+## Technology
+
+
+## Authors
+
+- [@maiveasna](https://www.linkedin.com/in/mai-veasna-61412919a/)
