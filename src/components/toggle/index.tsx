@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 type Props = {
   defaultValue?: boolean;
   onChange?: (value) => void;
-  title: string;
+  title: string | ReactNode;
   id?: string;
 };
 export default function Toggle({ defaultValue, onChange, title, id }: Props) {

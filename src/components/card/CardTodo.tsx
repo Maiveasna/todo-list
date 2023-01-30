@@ -20,7 +20,10 @@ export default function CardTodo({
   onToggle?: (data?: Data) => void;
 }) {
   const handleChek = async () => {
-    await TodoApis.editTodo({ ...data, isCompleted: !data?.isCompleted })
+    await TodoApis.editTodo({
+      id: data?.id as number,
+      isCompleted: !data?.isCompleted,
+    })
       .then((res) => {
         const resData = res?.data;
         onToggle && onToggle(resData);
