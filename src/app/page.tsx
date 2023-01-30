@@ -21,14 +21,21 @@ export default function Home() {
     progress?: number;
     recent?: Data[];
   }>();
+  const [refreshCount, setRefreshCount] = useState<number>(0);
   useEffect(() => {
     fetchDataSummay().then((res) => {
       setSmaryData(res);
     });
-  }, []);
+  }, [refreshCount]);
+
+  const handleRefresh = () => {
+    setRefreshCount(refreshCount + 1);
+  };
   return (
     <div className="w-full h-full">
-      <DaboardContainer props={{ ...sumaryData }} />
+      <DaboardContainer
+        props={{ ...sumaryData, onRefresh: () => handleRefresh() }}
+      />
     </div>
   );
 }

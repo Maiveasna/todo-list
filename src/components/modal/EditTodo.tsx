@@ -59,8 +59,7 @@ export default function EditTodo({ dataEdit, onClose, onSuccess }: Props) {
           httpUtils.parseError(error).then((err) => {
             setMessage(err?.errors[0]);
           });
-        })
-        .catch((error) => error);
+        });
     }
   };
 
@@ -81,20 +80,11 @@ export default function EditTodo({ dataEdit, onClose, onSuccess }: Props) {
             <div className="mt-4 flex justify-between items-center">
               <div />
               <Toggle
+                id={data?.id + "_edit_todo"}
                 onChange={handleChek}
                 defaultValue={data?.isCompleted}
                 title="Mark as complete"
               />
-              {/*<label htmlFor="isComplete" className="flex  space-x-2">
-                <input
-                  onChange={handleChek}
-                  checked={data?.isCompleted}
-                  id="isComplete"
-                  type="checkbox"
-                  className=" px-3 focus:outline-none text-gray-600 hover:text-teal-500 w-5 h-5 border"
-                />
-                <span>Complete</span>
-              </label>*/}
             </div>
             <div className="mt-4 flex justify-between items-center">
               <span className="text-sm text-red-500">{message}</span>

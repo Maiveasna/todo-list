@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlineMeh, AiOutlinePlus } from "react-icons/ai";
 import { BsEyeFill } from "react-icons/bs";
+import { FiRefreshCcw } from "react-icons/fi";
 import { GiProgression } from "react-icons/gi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import CardTodo from "../card/CardTodo";
@@ -16,6 +17,7 @@ type Props = {
   completed?: number;
   progress?: number;
   recent?: Data[];
+  onRefresh?: () => void;
 };
 export default function DaboardContainer({ props }: { props: Props }) {
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,6 +25,7 @@ export default function DaboardContainer({ props }: { props: Props }) {
   const [open, setOpen] = useState<boolean>(false);
   const [openEdit, setOpenEdit] = useState<boolean>(false);
   const [editData, setDataEdit] = useState<Data>();
+  const { onRefresh } = props;
 
   useEffect(() => {
     setData(props?.recent);
@@ -33,6 +36,7 @@ export default function DaboardContainer({ props }: { props: Props }) {
         const nData = data?.filter((todo) => todo.id !== id);
         setData(nData);
         ToastMessage({ title: res?.data.message, status: "success" });
+        onRefresh();
       })
       .catch((error) => {
         httpUtils.parseError(error).then((err) => {
@@ -80,13 +84,22 @@ export default function DaboardContainer({ props }: { props: Props }) {
       <ToastContainer />
       <div className="w-full flex bg-white px-6 py-3 justify-between items-center">
         <span className=" font-semibold uppercase">Dashboard</span>
-        <button
-          onClick={() => setOpen(true)}
-          className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500"
-        >
-          <AiOutlinePlus size={16} />
-          <span> New</span>
-        </button>
+        <div className=" flex space-x-4">
+          <button
+            onClick={onRefresh}
+            className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500"
+          >
+            <FiRefreshCcw size={16} />
+            <span>Refresh</span>
+          </button>
+          <button
+            onClick={() => setOpen(true)}
+            className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500"
+          >
+            <AiOutlinePlus size={16} />
+            <span> New</span>
+          </button>
+        </div>
       </div>
       <div className=" lg:grid-cols-2 2xl:grid-cols-2 xl:grid-cols-2 grid-cols-1 grid gap-6 w-full mt-2">
         <Link href="/list?filter=progress">
@@ -151,9 +164,10 @@ export default function DaboardContainer({ props }: { props: Props }) {
           data.map((rec: Data, index: number) => {
             return (
               <CardTodo
+                onToggle={handleeditSucess}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
-                key={index}
+                key={rec?.id + "_" + index}
                 data={rec}
               />
             );

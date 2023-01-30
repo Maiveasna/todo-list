@@ -1,17 +1,18 @@
-import React from "react";
+import React, { ReactNode } from "react";
 type Props = {
   defaultValue?: boolean;
   onChange?: (value) => void;
-  title: string;
+  title: string | ReactNode;
+  id?: string;
 };
-export default function Toggle({ defaultValue, onChange, title }: Props) {
+export default function Toggle({ defaultValue, onChange, title, id }: Props) {
   return (
-    <label htmlFor="toogleA" className="flex items-center cursor-pointer">
+    <label htmlFor={id} className="flex items-center cursor-pointer">
       <div className="relative">
         <input
           checked={defaultValue}
           onChange={(e) => onChange && onChange(e.target.checked)}
-          id="toogleA"
+          id={id}
           type="checkbox"
           className="sr-only"
         />
