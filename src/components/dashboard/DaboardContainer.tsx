@@ -181,7 +181,7 @@ export default function DaboardContainer({ props }: { props: Props }) {
               />
             );
           })}
-        {!loading && props?.recent?.length === 0 && (
+        {!loading && data?.length === 0 && (
           <div className=" space-x-2 items-center flex justify-center my-24">
             <AiOutlineMeh size={20} className="text-red-500" />
             <span className="text-gray-500">No Result</span>
