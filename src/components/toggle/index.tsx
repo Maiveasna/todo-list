@@ -4,10 +4,22 @@ type Props = {
   onChange?: (value) => void;
   title: string | ReactNode;
   id?: string;
+  loading?: boolean;
 };
-export default function Toggle({ defaultValue, onChange, title, id }: Props) {
+export default function Toggle({
+  defaultValue,
+  onChange,
+  title,
+  id,
+  loading,
+}: Props) {
   return (
-    <label htmlFor={id} className="flex items-center cursor-pointer">
+    <label
+      htmlFor={id}
+      className={`flex items-center  ${
+        loading ? " pointer-events-none text-gray-400" : "cursor-pointer"
+      }`}
+    >
       <div className="relative">
         <input
           checked={defaultValue}

@@ -4,6 +4,7 @@ import { Data } from "@/common/type/todoTypeApi";
 import httpUtils from "@/common/utils/httpUtils";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Modal from ".";
 import Toggle from "../toggle";
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 export default function EditTodo({ dataEdit, onClose, onSuccess }: Props) {
   const [message, setMessage] = useState<string>();
   const [data, setData] = useState<Data>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setData(dataEdit);
@@ -49,14 +51,17 @@ export default function EditTodo({ dataEdit, onClose, onSuccess }: Props) {
       id: data?.id as number,
     };
     if (validtion()) {
+      setLoading(true);
       await TodoApis.editTodo({ ...body })
         .then((res) => {
           const resData = res?.data;
           ToastMessage({ title: "Updated success", status: "success" });
           onSuccess && onSuccess(resData);
+          setLoading(false);
         })
         .catch((error) => {
           httpUtils.parseError(error).then((err) => {
+            setLoading(false);
             setMessage(err?.errors[0]);
           });
         });
@@ -66,6 +71,11 @@ export default function EditTodo({ dataEdit, onClose, onSuccess }: Props) {
   return (
     <Modal title="Update Todo">
       <div className=" flex flex-col w-full ">
+        {loading && (
+          <div className=" h-full w-full bg-black bg-opacity-20 absolute inset-0 z-20 flex flex-col items-center justify-center">
+            <AiOutlineLoading3Quarters className=" animate-spin text-teal-500" />
+          </div>
+        )}
         <div className="sm:flex sm:items-start">
           <div className="mt-2 h-30 w-full flex  flex-col">
             <div className=" border border-teal-500 items-center w-full justify-center flex py-2 px-3 text-sm rounded-lg space-x-2 ">

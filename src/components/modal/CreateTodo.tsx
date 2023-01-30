@@ -3,6 +3,7 @@ import TodoApis from "@/common/api/TodoApi";
 import { Data } from "@/common/type/todoTypeApi";
 import httpUtils from "@/common/utils/httpUtils";
 import React, { useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Modal from ".";
 import Toggle from "../toggle";
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 export default function CreateTodo({ onClose, onSuccess }: Props) {
   const [message, setMessage] = useState<string>();
   const [data, setData] = useState<{ todo?: string; isCompleted?: boolean }>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChangeInput = (e) => {
     setMessage("");
@@ -42,16 +44,19 @@ export default function CreateTodo({ onClose, onSuccess }: Props) {
       todo: data?.todo,
     };
     if (validtion()) {
+      setLoading(true);
       await TodoApis.createTodo({ ...body })
         .then((res) => {
           const resData = res?.data;
           setData({ todo: "", isCompleted: false });
           ToastMessage({ title: "Created success", status: "success" });
           onSuccess && onSuccess(resData);
+          setLoading(false);
         })
         .catch((error) => {
           httpUtils.parseError(error).then((err) => {
             setMessage(err?.errors[0]);
+            setLoading(false);
           });
         });
     }
@@ -59,6 +64,11 @@ export default function CreateTodo({ onClose, onSuccess }: Props) {
 
   return (
     <Modal title="Create Todo">
+      {loading && (
+        <div className=" h-full w-full bg-black bg-opacity-20 absolute inset-0 z-20 flex flex-col items-center justify-center">
+          <AiOutlineLoading3Quarters className=" animate-spin text-teal-500" />
+        </div>
+      )}
       <div className=" flex flex-col w-full ">
         <div className="sm:flex sm:items-start">
           <div className="mt-2 h-30 w-full flex  flex-col">
