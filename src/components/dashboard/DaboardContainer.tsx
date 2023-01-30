@@ -92,13 +92,6 @@ export default function DaboardContainer({ props }: { props: Props }) {
             <FiRefreshCcw size={16} />
             <span>Refresh</span>
           </button>
-          <button
-            onClick={() => setOpen(true)}
-            className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500"
-          >
-            <AiOutlinePlus size={16} />
-            <span> New</span>
-          </button>
         </div>
       </div>
       <div className=" lg:grid-cols-2 2xl:grid-cols-2 xl:grid-cols-2 grid-cols-1 grid gap-6 w-full mt-2">
@@ -152,12 +145,21 @@ export default function DaboardContainer({ props }: { props: Props }) {
         <span className=" font-semibold uppercase">
           Recently {data?.length > 0 && `(${props?.recent?.length})`}
         </span>
-        <Link href="/list">
-          <div className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500">
-            <BsEyeFill size={16} />
-            <span>View All</span>
-          </div>
-        </Link>
+        <div className=" flex space-x-4">
+          <button
+            onClick={() => setOpen(true)}
+            className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500"
+          >
+            <AiOutlinePlus size={16} />
+            <span> New</span>
+          </button>
+          <Link href="/list">
+            <div className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500">
+              <BsEyeFill size={16} />
+              <span>View All</span>
+            </div>
+          </Link>
+        </div>
       </div>
       <div className=" flex flex-col w-full mt-2 space-y-2">
         {data &&
