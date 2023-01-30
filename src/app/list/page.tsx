@@ -5,11 +5,11 @@ import { Data } from "@/common/type/todoTypeApi";
 import httpUtils from "@/common/utils/httpUtils";
 import CardTodo from "@/components/card/CardTodo";
 import CreateTodo from "@/components/modal/CreateTodo";
+import EditTodo from "@/components/modal/EditTodo";
 import Selector from "@/components/select/select";
 import _ from "lodash";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { AiOutlineMeh, AiOutlinePlus } from "react-icons/ai";
 import { RiSearchLine } from "react-icons/ri";
 import { ToastContainer, ToastMessage } from "../toastMessage";
@@ -24,6 +24,8 @@ export default function ListPage() {
   const [open, setOpen] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const [data, setData] = useState<Data[]>();
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const [editData, setDataEdit] = useState<Data>();
   const filter =
     searchParams?.get("filter") == "all" || !searchParams?.get("filter")
       ? "all"
@@ -74,7 +76,8 @@ export default function ListPage() {
         httpUtils.parseError(error).then((err) => {
           ToastMessage({ title: err.errors[0], status: "error" });
         });
-      });
+      })
+      .catch((error) => error);
   };
 
   const handleSucess = (dataSub) => {
@@ -82,10 +85,24 @@ export default function ListPage() {
     setData(newData);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleeditSucess = (dataSub) => {
+    const newData = [...data];
+    const index = newData.findIndex((todo) => todo?.id == dataSub?.id);
+    newData[index] = { ...dataSub };
+    setData(newData);
+    setDataEdit(null);
+    setOpenEdit(false);
   };
 
+  const handleEdit = (data?: Data) => {
+    setDataEdit(data);
+    setOpenEdit(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setOpenEdit(false);
+  };
   return (
     <div className="w-full h-full  m-auto max-w-4xl rounded-lg ">
       <ToastContainer />
@@ -105,7 +122,10 @@ export default function ListPage() {
             defaultValue={filter}
             data={filters}
           />
-          <button className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500">
+          <button
+            onClick={() => setOpen(true)}
+            className=" border border-teal-500 items-center justify-center flex px-4 py-2 text-sm rounded-lg space-x-2 text-gray-600 hover:text-teal-500"
+          >
             <AiOutlinePlus size={16} />
           </button>
         </div>
@@ -114,7 +134,12 @@ export default function ListPage() {
         {data &&
           data.map((rec: Data, index: number) => {
             return (
-              <CardTodo onDelete={handleDelete} key={rec?.id} data={rec} />
+              <CardTodo
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                key={rec?.id}
+                data={rec}
+              />
             );
           })}
         {(loading || isFetchingNextPage) &&
@@ -145,6 +170,13 @@ export default function ListPage() {
         )}
       </div>
       {open && <CreateTodo onClose={handleClose} onSuccess={handleSucess} />}
+      {openEdit && (
+        <EditTodo
+          onClose={handleClose}
+          dataEdit={editData}
+          onSuccess={handleeditSucess}
+        />
+      )}
     </div>
   );
 }

@@ -10,7 +10,7 @@ const ToastMessage = ({
   //  toast message
   if (status == "success") {
     toast.success(title, {
-      position: "top-center",
+      position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -22,7 +22,7 @@ const ToastMessage = ({
     });
   } else if (status == "error") {
     return toast.error(title, {
-      position: "top-center",
+      position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
