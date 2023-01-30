@@ -4,6 +4,7 @@ import useTodo from "@/common/hook/useTodo";
 import { Data } from "@/common/type/todoTypeApi";
 import httpUtils from "@/common/utils/httpUtils";
 import CardTodo from "@/components/card/CardTodo";
+import CreateTodo from "@/components/modal/CreateTodo";
 import Selector from "@/components/select/select";
 import _ from "lodash";
 import { useRouter } from "next/navigation";
@@ -20,6 +21,7 @@ const filters = [
 export default function ListPage() {
   const [search, setSearch] = useState<string>();
   const router = useRouter();
+  const [open, setOpen] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const [data, setData] = useState<Data[]>();
   const filter =
@@ -73,6 +75,15 @@ export default function ListPage() {
           ToastMessage({ title: err.errors[0], status: "error" });
         });
       });
+  };
+
+  const handleSucess = (dataSub) => {
+    const newData = [dataSub, ...data];
+    setData(newData);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -133,6 +144,7 @@ export default function ListPage() {
           </div>
         )}
       </div>
+      {open && <CreateTodo onClose={handleClose} onSuccess={handleSucess} />}
     </div>
   );
 }
