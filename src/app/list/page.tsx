@@ -84,16 +84,32 @@ export default function ListPage() {
       .catch((error) => error);
   };
 
-  const handleSucess = (dataSub) => {
-    const newData = [dataSub, ...data];
-    setData(newData);
+  const handleSucess = (dataSub: Data) => {
+    if (filter === "all") {
+      const newData = [dataSub, ...data];
+      setData(newData);
+    } else {
+      const checkStatus = filter === "completed" ? true : false;
+      const newData =
+        dataSub?.isCompleted == checkStatus ? [dataSub, ...data] : [...data];
+      setData(newData);
+    }
   };
 
   const handleeditSucess = (dataSub) => {
     const newData = [...data];
     const index = newData.findIndex((todo) => todo?.id == dataSub?.id);
     newData[index] = { ...dataSub };
-    setData(newData);
+    if (filter === "all") {
+      setData(newData);
+    } else {
+      const checkStatus = filter === "completed" ? true : false;
+      const dataFilter =
+        dataSub?.isCompleted == checkStatus
+          ? newData
+          : newData.filter((todo) => todo?.id !== dataSub?.id);
+      setData(dataFilter);
+    }
     setDataEdit(null);
     setOpenEdit(false);
   };
