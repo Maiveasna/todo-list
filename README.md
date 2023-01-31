@@ -48,13 +48,6 @@ Have fun and happy coding! 😁😁
 > ```
 
 
-  ####  base url 
- 
- > ```javascript
-> https://v-tech-rho.vercel.app
-> ```
-
-
 First install dependent
 
 
@@ -102,6 +95,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 </br>
 
 ## CRUD APIs
+
+
+
+  ####  base url 
+ 
+ > ```javascript
+> https://v-tech-rho.vercel.app
+> ```
 
 
 #### get todo list
@@ -224,13 +225,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Tech Stack
 
-**Client:** React,TailwindCSS, Next Js
+**Client:** React,TailwindCSS, NextJs V.13,
 
 **Server:** AWS,Vercel, 
     
 **Database:** PostgreSQL,
     
-**Backend:** Prisma, Node Js,
+**Backend:** Prisma, NodeJs,
     
     
 
@@ -238,6 +239,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Authors
     
 - [@maiveasna]( https://github.com/Maiveasna)
+
+## Support
+
+For support, email maiveasna9@gmail.com
+
+
 
 
     
