@@ -20,8 +20,20 @@ export default async function handler(
     case "GET":
       try {
         const start = new Date(req.query.start as string); // 2023-01-28
-        const day = start.getUTCDate() - 1;
-        start.setDate(day);
+        let day = start.getUTCDate() - 1;
+        const lastdayOfMonth = new Date(
+          start?.getFullYear(),
+          start?.getMonth() - 1,
+          0
+        ).getDate();
+        //if (day === 0) {
+        //  const month = start?.getMonth();
+        //  start.setMonth(month, 0);
+        //  start.setDate(lastdayOfMonth);
+        //} else {
+        //  start.setDate(start.getUTCDate());
+        //}
+        //start.setDate(start.getUTCDate());
         const end = new Date(req.query.end as string); // 2023-01-30
         const endDay = end.getUTCDate() + 1;
         end.setDate(endDay);
