@@ -1,11 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
-import { Data, Error, Links, Meta } from "./../../../common/type/todoTypeApi";
+import {
+  Data,
+  ErrorType,
+  Links,
+  Meta,
+} from "./../../../common/type/todoTypeApi";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<
     | Data
-    | Error
+    | ErrorType
     | { data: Data[]; meta: Meta; link: Links }
     | { progress: number; completed: number; recent: Data[] }
   >

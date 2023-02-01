@@ -115,7 +115,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 > | name      |  type     | data type               | description                                                           |
 > |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
 > | limit      |  none |   number    | N/A  |
-> | filter      |  none |  boolean    | N/A  |
+> | filter      |  require |  string    | N/A  |
 
 
 ##### Responses

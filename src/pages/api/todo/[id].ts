@@ -2,10 +2,17 @@ import httpUtils from "@/common/utils/httpUtils";
 import _ from "lodash";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
-import { Data, Error, Links, Meta } from "./../../../common/type/todoTypeApi";
+import {
+  Data,
+  ErrorType,
+  Links,
+  Meta,
+} from "./../../../common/type/todoTypeApi";
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data | Error | { data: Data[]; meta: Meta; link: Links }>
+  res: NextApiResponse<
+    Data | ErrorType | { data: Data[]; meta: Meta; link: Links }
+  >
 ) {
   const requestMethod = req.method;
   switch (requestMethod) {

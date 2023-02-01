@@ -26,7 +26,7 @@ export type TodoParams = {
   filter?: boolean | string;
 };
 
-export type Error = {
+export type ErrorType = {
   message?: string;
   status?: number;
 };
