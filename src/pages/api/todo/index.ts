@@ -21,7 +21,7 @@ export default async function handler(
         const body = req?.body;
         const newData = await prisma.todo.create({
           data: {
-            todo: body?.todo,
+            todo: body?.todo.trim(),
             isCompleted: body?.isCompleted ?? false,
           },
         });

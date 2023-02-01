@@ -28,9 +28,8 @@ export default async function handler(
           return res.status(404).json({ status: 404, message: "Not Found" });
         }
         const checkUniq = await prisma.todo.findUnique({
-          where: { todo: body?.todo },
+          where: { todo: body?.todo.trim() },
         });
-
         if (checkUniq && body?.isCompleted === checkUniq?.isCompleted) {
           throw new Error("Unique constraint failed on the fields: (`todo`)");
         }
